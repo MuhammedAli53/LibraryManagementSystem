@@ -41,6 +41,10 @@ public class Genre {
     @Column(nullable = false)
     private Boolean active = true;
 
+
+
+
+
     @ManyToOne()
     private Genre parentGenre;
 
