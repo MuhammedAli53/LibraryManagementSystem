@@ -1,7 +1,8 @@
 package com.library_management_system.Service;
 
 import com.library_management_system.modal.Genre;
+import com.library_management_system.payload.dto.GenreDTO;
 
 public interface GenreService {
-    Genre createGenre(Genre genre);
+    GenreDTO createGenre(GenreDTO genre);
 }
