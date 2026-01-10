@@ -5,4 +5,10 @@ import com.library_management_system.payload.dto.GenreDTO;
 
 public interface GenreService {
     GenreDTO createGenre(GenreDTO genre);
+
+private String nameUpper(String name){
+    return name.toUpperCase();
 }
+}
+
+
