@@ -9,6 +9,9 @@ public interface GenreService {
 private String nameUpper(String name){
     return name.toUpperCase();
 }
+    private String nameLower(String name){
+        return name.toLowerCase();}
+
 }
 
 
