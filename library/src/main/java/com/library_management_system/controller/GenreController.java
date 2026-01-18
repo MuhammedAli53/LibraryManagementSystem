@@ -18,6 +18,7 @@ public class GenreController {
 
     private final GenreService genreService;
 
+    // add genre
     @PostMapping("/create")
     public ResponseEntity<GenreDTO> addGenre(@RequestBody GenreDTO genre){
         GenreDTO createdGenre = genreService.createGenre(genre);
@@ -25,6 +26,7 @@ public class GenreController {
 
     }
 
+    //getGenres
     @GetMapping("/getAllGenres")
     public ResponseEntity<?> getAllGenres(){
         List<GenreDTO> genres = genreService.getAllGenres();

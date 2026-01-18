@@ -6,6 +6,8 @@ import com.library_management_system.mapper.GenreMapper;
 import com.library_management_system.modal.Genre;
 import com.library_management_system.payload.dto.GenreDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,26 +17,14 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class GenreServiceImpl implements GenreService {
 
+    //object and constructor
     private final GenreRepository genreRepository;
-
     private final GenreMapper genreMapper;
 
     @Override
     public GenreDTO createGenre(GenreDTO genreDTO) {
-      // return genreRepository.save(genreDTO);
 
-        Genre genre = Genre.builder()
-                .code(genreDTO.getCode())
-                .name(genreDTO.getName())
-                .description(genreDTO.getDescription())
-                .displayOrder(genreDTO.getDisplayOrder())
-                .active(true)
-                .build();
-
-        if (genreDTO.getParentGenreId()!=null){
-            Genre parentGenre = genreRepository.findById(genreDTO.getParentGenreId()).get();
-            genre.setParentGenre(parentGenre);
-        }
+        Genre genre = genreMapper.toEntity(genreDTO);
         Genre savedGenre = genreRepository.save(genre);
 
         return genreMapper.toDTO(savedGenre);
@@ -45,5 +35,50 @@ public class GenreServiceImpl implements GenreService {
         return genreRepository.findAll().stream()
                 .map(genreMapper::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public GenreDTO getGenreById(Long genreId) {
+        return null;
+    }
+
+    @Override
+    public GenreDTO updateGenre(Long genreId, GenreDTO genre) {
+        return null;
+    }
+
+    @Override
+    public void deleteGenre(Long genreId) {
+
+    }
+
+    @Override
+    public void hardDeleteGenre(Long genreId) {
+
+    }
+
+    @Override
+    public List<GenreDTO> getAllActiveGenresWithSubGenres() {
+        return List.of();
+    }
+
+    @Override
+    public List<GenreDTO> getTopLevelGenres() {
+        return List.of();
+    }
+
+    @Override
+    public Page<GenreDTO> searchGenres(String searchTerm, Pageable pageable) {
+        return null;
+    }
+
+    @Override
+    public long getTotalActiveGenres() {
+        return 0;
+    }
+
+    @Override
+    public long getBookCountByGenre(Long genreId) {
+        return 0;
     }
 }
