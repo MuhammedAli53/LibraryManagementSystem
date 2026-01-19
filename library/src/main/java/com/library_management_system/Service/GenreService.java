@@ -1,5 +1,6 @@
 package com.library_management_system.Service;
 
+import com.library_management_system.exception.GenreException;
 import com.library_management_system.modal.Genre;
 import com.library_management_system.payload.dto.GenreDTO;
 import org.springframework.data.domain.Page;
@@ -13,7 +14,7 @@ public interface GenreService {
 
     List<GenreDTO> getAllGenres();
 
-    GenreDTO getGenreById(Long genreId);
+    GenreDTO getGenreById(Long genreId) throws GenreException;
 
     GenreDTO updateGenre(Long genreId, GenreDTO genre);
 
