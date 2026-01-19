@@ -2,6 +2,7 @@ package com.library_management_system.Service.impl;
 
 import com.library_management_system.Repository.GenreRepository;
 import com.library_management_system.Service.GenreService;
+import com.library_management_system.exception.GenreException;
 import com.library_management_system.mapper.GenreMapper;
 import com.library_management_system.modal.Genre;
 import com.library_management_system.payload.dto.GenreDTO;
@@ -38,12 +39,14 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
-    public GenreDTO getGenreById(Long genreId) {
-        return null;
+    public GenreDTO getGenreById(Long genreId) throws GenreException {
+        Genre genre = genreRepository.findById(genreId).orElseThrow(()-> new GenreException("Genre not found"));
+        return genreMapper.toDTO(genre);
     }
 
     @Override
     public GenreDTO updateGenre(Long genreId, GenreDTO genre) {
+        Genre existingGenre =
         return null;
     }
 
