@@ -6,6 +6,7 @@ import com.library_management_system.payload.dto.GenreDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
@@ -13,8 +14,8 @@ import java.util.stream.Collectors;
 public class GenreMapper {
 
     private final GenreRepository genreRepository;
-
-    public GenreDTO toDTO(Genre savedGenre){
+    // Converting from pojo to dto
+    public GenreDTO toDTO(Genre savedGenre){ //dtoya çeviri
         if (savedGenre == null){
             return null;
         }
@@ -44,8 +45,8 @@ public class GenreMapper {
          //dto.setBookCount((long) (savedGenre.getB));
         return dto;
     }
-
-    public Genre toEntity(GenreDTO genreDTO){
+    // Converting from dto to pojo
+    public Genre toEntity(GenreDTO genreDTO){ //pojoya çeviri
         if (genreDTO==null){
             return null;
         }
@@ -60,6 +61,27 @@ public class GenreMapper {
             genreRepository.findById(genreDTO.getParentGenreId()).ifPresent(genre::setParentGenre);
         }
         return genre;
+    }
+    //update from dto
+    public void updateEntityFromDTO(GenreDTO dto, Genre existingGenre){
+        if (dto == null || existingGenre == null){
+            return;
+        }
+        existingGenre.setCode(dto.getCode());
+        existingGenre.setName(dto.getName());
+        existingGenre.setDescription(dto.getDescription());
+        existingGenre.setDisplayOrder(dto.getDisplayOrder() != null ? dto.getDisplayOrder() : 0);
+        if (dto.getActive()!=null){
+            existingGenre.setActive(dto.getActive());
+        }
+        if (dto.getParentGenreId()!= null){
+            genreRepository.findById(dto.getParentGenreId()).ifPresent(existingGenre::setParentGenre);
+        }
+
+    }
+    //PojoList to DTOList
+    public List<GenreDTO> toDTOList(List<Genre> genreList){
+        return genreList.stream().map(genre -> toDTO(genre)).collect(Collectors.toList());
     }
 
 }
