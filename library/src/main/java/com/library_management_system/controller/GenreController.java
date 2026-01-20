@@ -37,22 +37,22 @@ public class GenreController {
     }
     //getGenreById
     @GetMapping("/{genreId}")
-    public ResponseEntity<?> getGenreById(@RequestParam("genreId") Long genreId) throws GenreException {
+    public ResponseEntity<?> getGenreById(@PathVariable("genreId") Long genreId) throws GenreException {
         GenreDTO genre = genreService.getGenreById(genreId);
         return ResponseEntity.ok(genre);
 
     }
     //updateGenre
     @PutMapping("/{genreId}")
-    public ResponseEntity<?> updateGenre(@RequestParam("genreId") Long genreId, @RequestBody GenreDTO genreDTO) throws GenreException {
+    public ResponseEntity<?> updateGenre(@PathVariable("genreId") Long genreId, @RequestBody GenreDTO genreDTO) throws GenreException {
         GenreDTO genres = genreService.updateGenre(genreId, genreDTO);
         return ResponseEntity.ok(genres);
 
     }
 
-    //deleteGenre
+    //deleteSoftGenre
     @DeleteMapping("/{genreId}")
-    public ResponseEntity<?> deleteGenre(@RequestParam("genreId") Long genreId) throws GenreException {
+    public ResponseEntity<?> deleteGenre(@PathVariable("genreId") Long genreId) throws GenreException {
         genreService.deleteGenre(genreId);
         ApiResponse response = new ApiResponse("Genre deleted - soft delete", true);
         return ResponseEntity.ok(response);
@@ -61,7 +61,7 @@ public class GenreController {
 
     //hardDeleteGenre
     @DeleteMapping("/{genreId}/hard")
-    public ResponseEntity<?> hardDeleteGenre(@RequestParam("genreId") Long genreId) throws GenreException {
+    public ResponseEntity<?> hardDeleteGenre(@PathVariable("genreId") Long genreId) throws GenreException {
         genreService.hardDeleteGenre(genreId);
         ApiResponse response = new ApiResponse("Genre deleted - hard delete", true);
         return ResponseEntity.ok(response);
